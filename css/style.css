@@ -1,0 +1,75 @@
+.contact .contact-method, section p, nav, header {
+  text-align: center;
+}
+
+header {
+  padding: 25px;
+}
+header h1 {
+  margin-top: 20px;
+}
+
+#avatar {
+  border-radius: 50%;
+  height: 150px;
+}
+
+nav {
+  margin-bottom: 50px;
+}
+nav ul {
+  padding: 0;
+}
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+nav ul li a {
+  color: #555555;
+}
+nav ul li a:hover {
+  color: #555555;
+  text-decoration: none;
+}
+nav ul li.active {
+  font-weight: bold;
+}
+
+@media (max-width: 499px) {
+  nav ul li {
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+section p {
+  margin-bottom: 25px;
+}
+
+.resume {
+  margin: 0 auto;
+  width: 75%;
+}
+.resume td {
+  padding-bottom: 10px;
+}
+
+.company-row :first-child {
+  font-weight: bold;
+}
+.company-row :last-child {
+  font-style: italic;
+  text-align: right;
+}
+
+.skills-row {
+  color: #555555;
+}
+
+.contact .contact-method {
+  margin-top: 25px;
+}
+.contact a > i {
+  color: #222222;
+}
+
+/*# sourceMappingURL=style.css.map */
