@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculator</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <style>
+            body {
+                height: 100vh;
+                background-color: #6f6f6f;
+            }
+
+            #app {
+                padding-top: 2em;
+            }
+
+            input {
+                margin-bottom: 1em;
+            }
+
+            input:disabled:hover {
+                cursor: default;
+            }
+
+            .button {
+                height: 3.5em;
+                width: 3.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container is-fluid" id="app">
+            <div class="columns is-mobile">
+                <div class="column is-half-tablet">
+                    <input
+                        class="input is-large has-text-right"
+                        disabled
+                        type="text"
+                        :value="display"
+                    />
+                    <div class="columns is-mobile">
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-light is-rounded is-fullwidth"
+                                @click="clearClick"
+                            >
+                                AC
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-light is-rounded is-fullwidth"
+                                @click="negateClick"
+                            >
+                                &plusmn;
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-light is-rounded is-fullwidth"
+                                @click="percentClick"
+                            >
+                                %
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-danger is-rounded is-fullwidth"
+                                @click="operatorClick('/')"
+                            >
+                                &divide;
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(7)"
+                            >
+                                7
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(8)"
+                            >
+                                8
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(9)"
+                            >
+                                9
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-danger is-rounded is-fullwidth"
+                                @click="operatorClick('*')"
+                            >
+                                x
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(4)"
+                            >
+                                4
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(5)"
+                            >
+                                5
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(6)"
+                            >
+                                6
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-danger is-rounded is-fullwidth"
+                                @click="operatorClick('-')"
+                            >
+                                -
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(1)"
+                            >
+                                1
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(2)"
+                            >
+                                2
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="numberClick(3)"
+                            >
+                                3
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-danger is-rounded is-fullwidth"
+                                @click="operatorClick('+')"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div class="columns is-mobile">
+                        <div class="column is-half has-text-centered">
+                            <button
+                                class="button is-fullwidth is-dark is-rounded is-fullwidth"
+                                @click="numberClick(0)"
+                            >
+                                0
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-dark is-rounded is-fullwidth"
+                                @click="dotClick"
+                            >
+                                .
+                            </button>
+                        </div>
+                        <div class="column has-text-centered">
+                            <button
+                                class="button is-danger is-rounded is-fullwidth"
+                                @click="equalClick"
+                            >
+                                =
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function performOperation(operator, num1, num2) {
+                switch (operator) {
+                    case '+':
+                        return num1 + num2;
+                    case '-':
+                        return num1 - num2;
+                    case '*':
+                        return num1 * num2;
+                    case '/':
+                        return num1 / num2;
+                    default:
+                        return num1;
+                }
+            }
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    appending: false,
+                    currentOperation: null,
+                    display: '0',
+                    storedNumber: 0,
+                },
+                methods: {
+                    clearClick: function () {
+                        this.display = '0';
+                        this.appending = true;
+                        this.storedNumber = 0;
+                        this.currentOperation = null;
+                    },
+                    dotClick: function () {
+                        if (this.display.indexOf('.') === -1) {
+                            if (this.appending) {
+                                this.display += '.';
+                            } else {
+                                this.display = '0.';
+                                this.appending = true;
+                            }
+                        }
+                    },
+                    equalClick: function () {
+                        this.storedNumber = performOperation(
+                            this.currentOperation,
+                            this.storedNumber,
+                            Number(this.display)
+                        );
+                        this.display = this.storedNumber;
+                        this.currentOperation = null;
+                    },
+                    negateClick: function () {
+                        this.display = Number(this.display) * -1 + '';
+                    },
+                    numberClick: function (number) {
+                        if (this.display === '0' || !this.appending) {
+                            this.display = number + '';
+                            this.appending = true;
+                        } else if (this.display.length < 20) {
+                            this.display += number;
+                        }
+                    },
+                    operatorClick: function (operator) {
+                        if (this.currentOperation) {
+                            this.storedNumber = performOperation(
+                                operator,
+                                this.storedNumber,
+                                Number(this.display)
+                            );
+                            this.display = this.storedNumber;
+                        } else {
+                            this.storedNumber = Number(this.display);
+                        }
+
+                        this.appending = false;
+                        this.currentOperation = operator;
+                    },
+                    percentClick: function () {
+                        this.display = Number(this.display) / 100.0 + '';
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

@@ -65,6 +65,10 @@ section p {
   color: #555555;
 }
 
+.projects a {
+  color: #000000;
+}
+
 .contact .contact-method {
   margin-top: 25px;
 }

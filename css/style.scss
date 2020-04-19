@@ -90,6 +90,12 @@ section {
     color: #555555;
 }
 
+.projects {
+    a {
+        color: #000000;
+    }
+}
+
 .contact {
     .contact-method {
         @extend %centerAligned;
